@@ -62,19 +62,17 @@
             border-right: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        nav.toc .brand-logo img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    filter: invert(1) hue-rotate(180deg); /* Inverte o fundo/texto e corrige o ponto vermelho */
-}
+        nav.toc .brand-logo {
+            margin-bottom: 12px;
+            max-width: 180px;
+        }
 
-nav.toc .brand-logo img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    /* Sem filtros: preserva a fidelidade original do arquivo */
-}
+        nav.toc .brand-logo img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            filter: invert(1) hue-rotate(180deg); /* Correção cromática inteligente: integra o fundo e mantém o ponto vermelho original */
+        }
 
         nav.toc .brand-sub {
             font-family: var(--mono);
@@ -433,7 +431,7 @@ nav.toc .brand-logo img {
             <li><a href="#cover" class="active"><span class="num">§00</span> Capa</a></li>
             <li><a href="#diagnostico"><span class="num">§01</span> Diagnóstico Técnico</a></li>
             <li><a href="#contrato-social"><span class="num">§02</span> Ajustes de Governança</a></li>
-            <li><a href="#solucao-contabil"><span class="num">§03</span> Engenharia de Mútuo</a></li>
+            <li><a href="#solucao-contabil"><span class="num">§03</span> Engenharia Contábil</a></li>
             <li><a href="#consolidado"><span class="num">§04</span> Matriz Consolidada</a></li>
             <li><a href="#individual"><span class="num">§05</span> Análise por Sócio</a></li>
             <li><a href="#plano-acao"><span class="num">§06</span> Plano de Execução</a></li>
@@ -503,7 +501,7 @@ nav.toc .brand-logo img {
             </div>
         </section>
 
-        <!-- §03 — ENGENHARIA DE MÚTUO E SOLUÇÃO CONTÁBIL -->
+        <!-- §03 — ENGENHARIA CONTÁBIL -->
         <section id="solucao-contabil">
             <span class="eyebrow">§03 — Engenharia Contábil</span>
             <h2>Conversão de Excesso em Instrumento de Mútuo</h2>
@@ -511,7 +509,7 @@ nav.toc .brand-logo img {
                 A estratégia eleita para mitigar integralmente o passivo do IRPF e do INSS consiste na <strong>reclassificação jurídica e contábil retroativa</strong> dos valores que ultrapassaram o teto isento, transformando-os em Contratos de Mútuo Financeiro legítimos entre a Pessoa Jurídica (Mutuante) e as Pessoas Físicas (Mutuários).
             </p>
             <p>
-                Os valores sacados dentro do limite de resultado teórico permanecem blindados na ficha de lucros isentos. O excesso passa a工夫gurar um direito de crédito da empresa.
+                Os valores sacados dentro do limite de resultado teórico permanecem blindados na ficha de lucros isentos. O excesso passa a configurar um direito de crédito da empresa.
             </p>
 
             <div class="card-box" style="border-left: 3px solid var(--black);">
@@ -739,6 +737,7 @@ nav.toc .brand-logo img {
             mutuo: 'R$ 370.567,73', iof: 'R$ 12.213,54', multa: 'R$ 2.442,71', juros: 'R$ 4.119,58',
             history: [
                 { ano: 2021, sacado: '35.250,00', limite: '0,00', excesso: '35.250,00', iof: '1.188,98', multa: '237,80', juros: '681,74', total: '2.108,52' },
+                { ano: 2022, sacado: '92.764,11', limite: '2.529,95', excesso: '90.234,16', iof: '3.043,60', multa: '608,72', juros: '1.494,96', total: '5.147,28' },
                 { ano: 2022, sacado: '92.764,11', limite: '2.529,95', excesso: '90.234,16', iof: '3.043,60', multa: '608,72', juros: '1.494,96', total: '5.147,28' },
                 { ano: 2023, sacado: '86.238,19', limite: '34.265,22', excesso: '51.972,97', iof: '1.753,05', multa: '350,61', juros: '656,98', total: '2.760,64' },
                 { ano: 2024, sacado: '108.171,98', limite: '0,00', excesso: '108.171,98', iof: '3.648,64', multa: '729,73', juros: '917,28', total: '5.295,65' },
