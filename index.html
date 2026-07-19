@@ -71,7 +71,7 @@
             max-width: 100%;
             height: auto;
             display: block;
-            filter: invert(1) hue-rotate(180deg); /* Correção cromática inteligente: integra o fundo e mantém o ponto vermelho original */
+            filter: invert(1) hue-rotate(180deg);
         }
 
         nav.toc .brand-sub {
@@ -277,12 +277,17 @@
         }
 
         /* Data Display and Tables */
-        table {
+        .table-wrapper {
             width: 100%;
             max-width: 950px;
-            border-collapse: collapse;
             margin: 24px 0;
             background: var(--white);
+            border: 1px solid var(--line);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
             font-size: 0.9rem;
         }
 
@@ -411,17 +416,160 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        @media(max-width: 900px) {
-            .shell { flex-direction: column; }
-            nav.toc { width: 100%; height: auto; position: relative; padding: 24px; }
-            section { padding: 48px 4vw; }
+        /* RESPONSIVE ARCHITECTURE — SMARTPHONE POLISH (MAX-WIDTH: 900px) */
+        @media (max-width: 900px) {
+            .shell {
+                flex-direction: column;
+            }
+
+            /* Transforms sidebar into a premium horizontal app bar system */
+            nav.toc {
+                width: 100%;
+                height: auto;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                padding: 16px 20px 8px 20px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            nav.toc .brand-logo {
+                margin-bottom: 4px;
+                max-width: 140px;
+            }
+
+            nav.toc .brand-sub {
+                font-size: 0.55rem;
+                margin-bottom: 16px;
+            }
+
+            /* Allows smooth horizontal swiping across document chapters */
+            nav.toc ol {
+                display: flex;
+                overflow-x: auto;
+                gap: 16px;
+                padding-bottom: 10px;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            nav.toc ol::-webkit-scrollbar {
+                height: 3px;
+            }
+
+            nav.toc ol::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 2px;
+            }
+
+            nav.toc li {
+                margin-bottom: 0;
+                flex: 0 0 auto;
+                scroll-snap-align: start;
+            }
+
+            nav.toc a {
+                padding: 4px 2px 8px 2px;
+                font-size: 0.78rem;
+                white-space: nowrap;
+                border-left: none;
+                border-bottom: 2px solid transparent;
+            }
+
+            nav.toc a:hover, nav.toc a.active {
+                padding-left: 2px;
+                background: transparent;
+                border-bottom-color: var(--red);
+                color: var(--white);
+            }
+
+            nav.toc .toc-foot {
+                display: none; /* Hidden to optimize mobile view height */
+            }
+
+            /* Content Area Spacing Adjustments */
+            section {
+                padding: 48px 5vw;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            p.lede {
+                font-size: 1.05rem;
+            }
+
+            p {
+                text-align: left; /* Better readability on tight mobile layouts */
+            }
+
+            /* Swipeable Tab Selector for Partners */
+            .selector-container {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                gap: 6px;
+                padding-bottom: 10px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .tab-btn {
+                flex: 0 0 auto;
+                font-size: 0.8rem;
+                padding: 8px 14px;
+            }
+
+            /* Guarantees that analytical tables never wrap or break layout boundaries */
+            .table-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                font-size: 0.82rem;
+                white-space: nowrap; /* Forces elegant column linearity without stacked word wraps */
+            }
+
+            th, td {
+                padding: 10px 12px;
+            }
+
+            /* Responsive Layout for Summary Cards */
+            .grid-cards {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .mini-card {
+                padding: 12px;
+            }
+
+            .mini-card .val {
+                font-size: 0.95rem;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+                padding: 32px 5vw;
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-cards {
+                grid-template-columns: 1fr; /* Stack cards on very narrow devices */
+            }
         }
     </style>
 </head>
 <body>
 
 <div class="shell">
-    <!-- Left Navigation Bar — Cardillo Style -->
+    <!-- Left Navigation Bar — Responsive Cardillo Style -->
     <nav class="toc">
         <div class="brand-logo">
             <img src="logo.png" alt="Cardillo, Prado Rossi & Alves">
@@ -530,68 +678,70 @@
                 Abaixo está estruturado o resumo corporativo do projeto Manusis, delimitando o montante total transacionado por beneficiário, o aproveitamento máximo da isenção (limite contábil) e o saldo real convertido em mútuo com seu respectivo custo total de IOF.
             </p>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Sócio Beneficiário</th>
-                        <th class="num-cell">Total Retirado (A)</th>
-                        <th class="num-cell">Limite Legal Isento (B)</th>
-                        <th class="num-cell">Saldo para Mútuo (C = A - B)</th>
-                        <th class="num-cell">Total Passivo IOF</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Rodrigo Rotondo</td>
-                        <td class="num-cell">R$ 1.913.813,06</td>
-                        <td class="num-cell text-green">R$ 389.246,29</td>
-                        <td class="num-cell highlight-red">R$ 1.259.700,94</td>
-                        <td class="num-cell">R$ 65.610,57</td>
-                    </tr>
-                    <tr>
-                        <td>Henrique Kraemer</td>
-                        <td class="num-cell">R$ 1.246.300,00</td>
-                        <td class="num-cell text-green">R$ 133.393,70</td>
-                        <td class="num-cell highlight-red">R$ 1.143.493,55</td>
-                        <td class="num-cell">R$ 56.910,11</td>
-                    </tr>
-                    <tr>
-                        <td>Marcus Petri</td>
-                        <td class="num-cell">R$ 800.310,28</td>
-                        <td class="num-cell text-green">R$ 105.279,95</td>
-                        <td class="num-cell highlight-red">R$ 729.639,54</td>
-                        <td class="num-cell">R$ 36.831,55</td>
-                    </tr>
-                    <tr>
-                        <td>Matheus Luz</td>
-                        <td class="num-cell">R$ 687.275,36</td>
-                        <td class="num-cell text-green">R$ 91.977,67</td>
-                        <td class="num-cell highlight-red">R$ 658.895,77</td>
-                        <td class="num-cell">R$ 33.520,02</td>
-                    </tr>
-                    <tr>
-                        <td>Aquiles Oliveira</td>
-                        <td class="num-cell">R$ 567.980,00</td>
-                        <td class="num-cell text-green">R$ 0,00</td>
-                        <td class="num-cell highlight-red">R$ 563.153,66</td>
-                        <td class="num-cell">R$ 24.781,02</td>
-                    </tr>
-                    <tr>
-                        <td>Erton Lutz</td>
-                        <td class="num-cell">R$ 426.909,56</td>
-                        <td class="num-cell text-green">R$ 198.599,85</td>
-                        <td class="num-cell highlight-red">R$ 370.567,73</td>
-                        <td class="num-cell">R$ 18.775,83</td>
-                    </tr>
-                    <tr class="total-row">
-                        <td>TOTAL CONSOLIDADO</td>
-                        <td class="num-cell">R$ 5.642.588,26</td>
-                        <td class="num-cell">R$ 918.497,46</td>
-                        <td class="num-cell highlight-red">R$ 4.725.451,19</td>
-                        <td class="num-cell">R$ 236.429,11</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sócio Beneficiário</th>
+                            <th class="num-cell">Total Retirado (A)</th>
+                            <th class="num-cell">Limite Legal Isento (B)</th>
+                            <th class="num-cell">Saldo para Mútuo (C = A - B)</th>
+                            <th class="num-cell">Total Passivo IOF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Rodrigo Rotondo</td>
+                            <td class="num-cell">R$ 1.913.813,06</td>
+                            <td class="num-cell text-green">R$ 389.246,29</td>
+                            <td class="num-cell highlight-red">R$ 1.259.700,94</td>
+                            <td class="num-cell">R$ 65.610,57</td>
+                        </tr>
+                        <tr>
+                            <td>Henrique Kraemer</td>
+                            <td class="num-cell">R$ 1.246.300,00</td>
+                            <td class="num-cell text-green">R$ 133.393,70</td>
+                            <td class="num-cell highlight-red">R$ 1.143.493,55</td>
+                            <td class="num-cell">R$ 56.910,11</td>
+                        </tr>
+                        <tr>
+                            <td>Marcus Petri</td>
+                            <td class="num-cell">R$ 800.310,28</td>
+                            <td class="num-cell text-green">R$ 105.279,95</td>
+                            <td class="num-cell highlight-red">R$ 729.639,54</td>
+                            <td class="num-cell">R$ 36.831,55</td>
+                        </tr>
+                        <tr>
+                            <td>Matheus Luz</td>
+                            <td class="num-cell">R$ 687.275,36</td>
+                            <td class="num-cell text-green">R$ 91.977,67</td>
+                            <td class="num-cell highlight-red">R$ 658.895,77</td>
+                            <td class="num-cell">R$ 33.520,02</td>
+                        </tr>
+                        <tr>
+                            <td>Aquiles Oliveira</td>
+                            <td class="num-cell">R$ 567.980,00</td>
+                            <td class="num-cell text-green">R$ 0,00</td>
+                            <td class="num-cell highlight-red">R$ 563.153,66</td>
+                            <td class="num-cell">R$ 24.781,02</td>
+                        </tr>
+                        <tr>
+                            <td>Erton Lutz</td>
+                            <td class="num-cell">R$ 426.909,56</td>
+                            <td class="num-cell text-green">R$ 198.599,85</td>
+                            <td class="num-cell highlight-red">R$ 370.567,73</td>
+                            <td class="num-cell">R$ 18.775,83</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>TOTAL CONSOLIDADO</td>
+                            <td class="num-cell">R$ 5.642.588,26</td>
+                            <td class="num-cell">R$ 918.497,46</td>
+                            <td class="num-cell highlight-red">R$ 4.725.451,19</td>
+                            <td class="num-cell">R$ 236.429,11</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <p style="font-size: 0.8rem; color: var(--gray);">* Nota: As divergências marginais entre a soma aritmética de (B + C) e o total sacado decorrem de amortizações internas de créditos e contas correntes específicas mapeadas individualmente em balanço (ex: rubricas de AFAC).</p>
         </section>
 
@@ -634,23 +784,25 @@
             </div>
 
             <!-- Detailed Dynamic Table -->
-            <table id="partner-table">
-                <thead>
-                    <tr>
-                        <th style="width: 10%;">Ano</th>
-                        <th class="num-cell">Adiantamento (A)</th>
-                        <th class="num-cell">Limite Isento (B)</th>
-                        <th class="num-cell">Excesso para Mútuo (C)</th>
-                        <th class="num-cell">IOF Diário + Adic.</th>
-                        <th class="num-cell">Multa Proporcional</th>
-                        <th class="num-cell">Juros Proporcionais</th>
-                        <th class="num-cell">Total Encargo</th>
-                    </tr>
-                </thead>
-                <tbody id="partner-table-body">
-                    <!-- Loaded dynamically via JS -->
-                </tbody>
-            </table>
+            <div class="table-wrapper">
+                <table id="partner-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;">Ano</th>
+                            <th class="num-cell">Adiantamento (A)</th>
+                            <th class="num-cell">Limite Isento (B)</th>
+                            <th class="num-cell">Excesso para Mútuo (C)</th>
+                            <th class="num-cell">IOF Diário + Adic.</th>
+                            <th class="num-cell">Multa Proporcional</th>
+                            <th class="num-cell">Juros Proporcionais</th>
+                            <th class="num-cell">Total Encargo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="partner-table-body">
+                        <!-- Loaded dynamically via JS -->
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <!-- §06 — PLANO DE EXECUÇÃO E RECOMENDAÇÕES -->
@@ -738,7 +890,6 @@
             history: [
                 { ano: 2021, sacado: '35.250,00', limite: '0,00', excesso: '35.250,00', iof: '1.188,98', multa: '237,80', juros: '681,74', total: '2.108,52' },
                 { ano: 2022, sacado: '92.764,11', limite: '2.529,95', excesso: '90.234,16', iof: '3.043,60', multa: '608,72', juros: '1.494,96', total: '5.147,28' },
-                { ano: 2022, sacado: '92.764,11', limite: '2.529,95', excesso: '90.234,16', iof: '3.043,60', multa: '608,72', juros: '1.494,96', total: '5.147,28' },
                 { ano: 2023, sacado: '86.238,19', limite: '34.265,22', excesso: '51.972,97', iof: '1.753,05', multa: '350,61', juros: '656,98', total: '2.760,64' },
                 { ano: 2024, sacado: '108.171,98', limite: '0,00', excesso: '108.171,98', iof: '3.648,64', multa: '729,73', juros: '917,28', total: '5.295,65' },
                 { ano: 2025, sacado: '104.485,28', limite: '19.546,66', excesso: '84.938,62', iof: '2.579,27', multa: '515,85', juros: '368,61', total: '3.463,74' }
@@ -773,7 +924,7 @@
                 <td class="num-cell highlight-red">${row.excesso === '0,00' ? 'R$ 0,00' : 'R$ ' + row.excesso}</td>
                 <td class="num-cell">R$ ${row.iof}</td>
                 <td class="num-cell">R$ ${row.multa}</td>
-                <td class="num-cell">R$ ${row.juros}</td>
+                <td class="num-cell">Juros R$ ${row.juros}</td>
                 <td class="num-cell" style="font-weight:600;">R$ ${row.total}</td>
             `;
             tbody.appendChild(tr);
