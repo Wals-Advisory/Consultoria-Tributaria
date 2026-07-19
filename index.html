@@ -252,6 +252,12 @@
             margin: 0;
             text-align: left;
         }
+        
+        .cover-bottom .founded-tag {
+            color: rgba(255, 255, 255, .55);
+            font-size: .82rem;
+            margin: 0;
+        }
 
         /* Alert and Info Boxes */
         .card-box {
@@ -422,7 +428,6 @@
                 flex-direction: column;
             }
 
-            /* Transforms sidebar into a premium horizontal app bar system */
             nav.toc {
                 width: 100%;
                 height: auto;
@@ -445,7 +450,6 @@
                 margin-bottom: 16px;
             }
 
-            /* Allows smooth horizontal swiping across document chapters */
             nav.toc ol {
                 display: flex;
                 overflow-x: auto;
@@ -486,10 +490,9 @@
             }
 
             nav.toc .toc-foot {
-                display: none; /* Hidden to optimize mobile view height */
+                display: none; 
             }
 
-            /* Content Area Spacing Adjustments */
             section {
                 padding: 48px 5vw;
             }
@@ -503,10 +506,9 @@
             }
 
             p {
-                text-align: left; /* Better readability on tight mobile layouts */
+                text-align: left;
             }
 
-            /* Swipeable Tab Selector for Partners */
             .selector-container {
                 overflow-x: auto;
                 flex-wrap: nowrap;
@@ -521,7 +523,6 @@
                 padding: 8px 14px;
             }
 
-            /* Guarantees that analytical tables never wrap or break layout boundaries */
             .table-wrapper {
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
@@ -529,14 +530,13 @@
 
             table {
                 font-size: 0.82rem;
-                white-space: nowrap; /* Forces elegant column linearity without stacked word wraps */
+                white-space: nowrap;
             }
 
             th, td {
                 padding: 10px 12px;
             }
 
-            /* Responsive Layout for Summary Cards */
             .grid-cards {
                 grid-template-columns: 1fr 1fr;
                 gap: 10px;
@@ -561,7 +561,7 @@
 
         @media (max-width: 480px) {
             .grid-cards {
-                grid-template-columns: 1fr; /* Stack cards on very narrow devices */
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -569,7 +569,6 @@
 <body>
 
 <div class="shell">
-    <!-- Left Navigation Bar — Responsive Cardillo Style -->
     <nav class="toc">
         <div class="brand-logo">
             <img src="logo.png" alt="Cardillo, Prado Rossi & Alves">
@@ -591,9 +590,7 @@
         </div>
     </nav>
 
-    <!-- Main Content Area -->
     <main>
-        <!-- COVER SECTION -->
         <section class="cover" id="cover">
             <div class="cover-top">
                 <span>Relatório Técnico de Adequação</span>
@@ -606,7 +603,7 @@
             </div>
             <div class="cover-bottom">
                 <p>Análise de lucros distribuídos em excesso, impactos retroativos de IOF e readequação do Contrato Social.</p>
-                <span>Desde 1947</span>
+                <p class="founded-tag">Desde 1947</p>
             </div>
         </section>
 
@@ -832,7 +829,6 @@
     </main>
 </div>
 
-<!-- DATA ARCHITECTURE & CONTROLLER (JAVASCRIPT) -->
 <script>
     const partnerData = {
         rotondo: {
@@ -898,20 +894,17 @@
     };
 
     function switchPartner(key) {
-        // Update active class on buttons
         const buttons = document.querySelectorAll('.tab-btn');
         buttons.forEach(btn => btn.classList.remove('active'));
         event.target.classList.add('active');
 
         const data = partnerData[key];
         
-        // Update Hero Summary Cards
         document.getElementById('card-mutuo').innerText = data.mutuo;
         document.getElementById('card-iof').innerText = data.iof;
         document.getElementById('card-multa').innerText = data.multa;
         document.getElementById('card-juros').innerText = data.juros;
 
-        // Build Table Rows dynamically
         const tbody = document.getElementById('partner-table-body');
         tbody.innerHTML = '';
         
@@ -924,19 +917,17 @@
                 <td class="num-cell highlight-red">${row.excesso === '0,00' ? 'R$ 0,00' : 'R$ ' + row.excesso}</td>
                 <td class="num-cell">R$ ${row.iof}</td>
                 <td class="num-cell">R$ ${row.multa}</td>
-                <td class="num-cell">Juros R$ ${row.juros}</td>
+                <td class="num-cell">R$ ${row.juros}</td>
                 <td class="num-cell" style="font-weight:600;">R$ ${row.total}</td>
             `;
             tbody.appendChild(tr);
         });
     }
 
-    // Initialize with first partner
     window.onload = function() {
         switchPartner('rotondo');
     };
 
-    // Simple scroll active indicator logic for TOC
     const sections = document.querySelectorAll('main section[id]');
     const tocLinks = document.querySelectorAll('nav.toc a');
     
